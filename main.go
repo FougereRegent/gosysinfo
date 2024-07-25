@@ -5,7 +5,8 @@ import (
 	"os"
 	"strings"
 
-	cpu "github.com/FougereRegent/gosysinfo/Cpu"
+	hardware "github.com/FougereRegent/gosysinfo/Hardware"
+	cpu "github.com/FougereRegent/gosysinfo/Hardware/Cpu"
 )
 
 const (
@@ -25,9 +26,11 @@ func getContentFile(path string) (*string, error) {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		result.WriteString(scanner.Text())
+		result.WriteByte('\n')
 	}
 
 	res := result.String()
+	res = res[:len(res)-1]
 	return &res, nil
 }
 
@@ -35,10 +38,15 @@ func GetLoadAvg() error {
 	return nil
 }
 
-func GetProcStat() (*cpu.CpuStats, error) {
-	return nil, nil
-}
+func GetCpuInfo() (*cpu.CpuStats, error) {
+	var hard hardware.Hardware
+	hard = &cpu.CpuParse{}
 
-func GetMemStat() error {
-	return nil
+	if content, err := getContentFile(_PATH_PROC_INFO); err != nil {
+		return nil, err
+	} else {
+		resultInteface := hard.ParseContent(*content)
+		result, _ := resultInteface.(cpu.CpuStats)
+		return &result, nil
+	}
 }
