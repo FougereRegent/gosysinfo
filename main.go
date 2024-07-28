@@ -34,8 +34,17 @@ func getContentFile(path string) (*string, error) {
 	return &res, nil
 }
 
-func GetLoadAvg() error {
-	return nil
+func GetLoadAvg() (*cpu.AvgStat, error) {
+	var hard hardware.Hardware
+	hard = &cpu.AvgParse{}
+
+	if content, err := getContentFile(_PATH_AVG_LOAD); err != nil {
+		return nil, err
+	} else {
+		resultInteface := hard.ParseContent(*content)
+		result, _ := resultInteface.(cpu.AvgStat)
+		return &result, nil
+	}
 }
 
 func GetCpuInfo() (*cpu.CpuStats, error) {

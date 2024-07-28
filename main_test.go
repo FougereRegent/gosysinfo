@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -12,10 +11,14 @@ func TestOpenFile(test *testing.T) {
 }
 
 func TestCpuParse(test *testing.T) {
-	if result, err := GetCpuInfo(); err != nil {
+	if _, err := GetCpuInfo(); err != nil {
 		test.Fatal(err.Error())
-	} else {
-		fmt.Println(result)
+	}
+}
+
+func TestAvgParse(test *testing.T) {
+	if _, err := GetLoadAvg(); err != nil {
+		test.Fatal(err.Error())
 	}
 }
 
@@ -30,6 +33,14 @@ func BenchmarkOpenFile(test *testing.B) {
 func BenchmarkGetCpuInfo(test *testing.B) {
 	for i := 0; i < test.N; i++ {
 		if _, err := GetCpuInfo(); err != nil {
+			test.Fatal(err.Error())
+		}
+	}
+}
+
+func BenchmarkGetAvgLoadInfo(test *testing.B) {
+	for i := 0; i < test.N; i++ {
+		if _, err := GetLoadAvg(); err != nil {
 			test.Fatal(err.Error())
 		}
 	}

@@ -53,7 +53,7 @@ type cpuLoad struct {
 }
 
 func (o *CpuParse) ParseContent(content string) interface{} {
-	result := CpuStats{}
+	var result CpuStats
 	stringTab := strings.Split(content, "\n")
 
 	index := &result.NumberCpu
