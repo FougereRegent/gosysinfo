@@ -7,6 +7,7 @@ import (
 
 	hardware "github.com/FougereRegent/gosysinfo/Hardware"
 	cpu "github.com/FougereRegent/gosysinfo/Hardware/Cpu"
+	mem "github.com/FougereRegent/gosysinfo/Hardware/Mem"
 )
 
 const (
@@ -56,6 +57,19 @@ func GetCpuInfo() (*cpu.CpuStats, error) {
 	} else {
 		resultInteface := hard.ParseContent(*content)
 		result, _ := resultInteface.(cpu.CpuStats)
+		return &result, nil
+	}
+}
+
+func GetMemInfo() (*mem.MemStats, error) {
+	var hard hardware.Hardware
+	hard = &mem.MemParse{}
+
+	if content, err := getContentFile(_PATH_MEM_INFO); err != nil {
+		return nil, err
+	} else {
+		resultInteface := hard.ParseContent(*content)
+		result, _ := resultInteface.(mem.MemStats)
 		return &result, nil
 	}
 }

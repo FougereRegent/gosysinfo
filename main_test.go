@@ -22,6 +22,12 @@ func TestAvgParse(test *testing.T) {
 	}
 }
 
+func TestMemInfo(test *testing.T) {
+	if _, err := GetMemInfo(); err != nil {
+		test.Fatal(err.Error())
+	}
+}
+
 func BenchmarkOpenFile(test *testing.B) {
 	for i := 0; i < test.N; i++ {
 		if _, err := getContentFile("/proc/stat"); err != nil {
