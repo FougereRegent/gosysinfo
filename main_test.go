@@ -1,44 +1,32 @@
-package main
+package gosysinfo_test
 
 import (
 	"testing"
+
+	"github.com/FougereRegent/gosysinfo"
 )
 
-func TestOpenFile(test *testing.T) {
-	if _, err := getContentFile("/proc/stat"); err != nil {
-		test.Fatal()
-	}
-}
-
 func TestCpuParse(test *testing.T) {
-	if _, err := GetCpuInfo(); err != nil {
+	if _, err := gosysinfo.GetCpuInfo(); err != nil {
 		test.Fatal(err.Error())
 	}
 }
 
 func TestAvgParse(test *testing.T) {
-	if _, err := GetLoadAvg(); err != nil {
+	if _, err := gosysinfo.GetLoadAvg(); err != nil {
 		test.Fatal(err.Error())
 	}
 }
 
 func TestMemInfo(test *testing.T) {
-	if _, err := GetMemInfo(); err != nil {
+	if _, err := gosysinfo.GetMemInfo(); err != nil {
 		test.Fatal(err.Error())
-	}
-}
-
-func BenchmarkOpenFile(test *testing.B) {
-	for i := 0; i < test.N; i++ {
-		if _, err := getContentFile("/proc/stat"); err != nil {
-			test.Fatal(err)
-		}
 	}
 }
 
 func BenchmarkGetCpuInfo(test *testing.B) {
 	for i := 0; i < test.N; i++ {
-		if _, err := GetCpuInfo(); err != nil {
+		if _, err := gosysinfo.GetCpuInfo(); err != nil {
 			test.Fatal(err.Error())
 		}
 	}
@@ -46,7 +34,7 @@ func BenchmarkGetCpuInfo(test *testing.B) {
 
 func BenchmarkGetAvgLoadInfo(test *testing.B) {
 	for i := 0; i < test.N; i++ {
-		if _, err := GetLoadAvg(); err != nil {
+		if _, err := gosysinfo.GetLoadAvg(); err != nil {
 			test.Fatal(err.Error())
 		}
 	}

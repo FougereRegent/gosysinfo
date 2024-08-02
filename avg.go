@@ -1,18 +1,18 @@
-package cpu
+package main
 
 import (
 	"strconv"
 	"strings"
 )
 
-type AvgParse struct {
+type avgParse struct {
 }
 
 type AvgStat struct {
 	InstantAvg, OneAvg, FiveAvg float32
 }
 
-func (o *AvgParse) ParseContent(content string) interface{} {
+func (o *avgParse) ParseContent(content string) interface{} {
 	var result AvgStat
 	values := strings.Split(content, " ")
 

@@ -1,13 +1,9 @@
-package main
+package gosysinfo
 
 import (
 	"bufio"
 	"os"
 	"strings"
-
-	hardware "github.com/FougereRegent/gosysinfo/Hardware"
-	cpu "github.com/FougereRegent/gosysinfo/Hardware/Cpu"
-	mem "github.com/FougereRegent/gosysinfo/Hardware/Mem"
 )
 
 const (
@@ -35,41 +31,41 @@ func getContentFile(path string) (*string, error) {
 	return &res, nil
 }
 
-func GetLoadAvg() (*cpu.AvgStat, error) {
-	var hard hardware.Hardware
-	hard = &cpu.AvgParse{}
+func GetLoadAvg() (*AvgStat, error) {
+	var hard hardware
+	hard = &avgParse{}
 
 	if content, err := getContentFile(_PATH_AVG_LOAD); err != nil {
 		return nil, err
 	} else {
 		resultInteface := hard.ParseContent(*content)
-		result, _ := resultInteface.(cpu.AvgStat)
+		result, _ := resultInteface.(AvgStat)
 		return &result, nil
 	}
 }
 
-func GetCpuInfo() (*cpu.CpuStats, error) {
-	var hard hardware.Hardware
-	hard = &cpu.CpuParse{}
+func GetCpuInfo() (*CpuStats, error) {
+	var hard hardware
+	hard = &cpuParse{}
 
 	if content, err := getContentFile(_PATH_PROC_INFO); err != nil {
 		return nil, err
 	} else {
 		resultInteface := hard.ParseContent(*content)
-		result, _ := resultInteface.(cpu.CpuStats)
+		result, _ := resultInteface.(CpuStats)
 		return &result, nil
 	}
 }
 
-func GetMemInfo() (*mem.MemStats, error) {
-	var hard hardware.Hardware
-	hard = &mem.MemParse{}
+func GetMemInfo() (*MemStats, error) {
+	var hard hardware
+	hard = &memParse{}
 
 	if content, err := getContentFile(_PATH_MEM_INFO); err != nil {
 		return nil, err
 	} else {
 		resultInteface := hard.ParseContent(*content)
-		result, _ := resultInteface.(mem.MemStats)
+		result, _ := resultInteface.(MemStats)
 		return &result, nil
 	}
 }

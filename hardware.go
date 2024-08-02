@@ -1,5 +1,5 @@
-package hardware
+package gosysinfo
 
-type Hardware interface {
+type hardware interface {
 	ParseContent(content string) interface{}
 }
