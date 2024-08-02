@@ -1,4 +1,4 @@
-package mem
+package main
 
 import (
 	"fmt"
@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-type MemParse struct{}
+type memParse struct{}
 
 type MemStats struct {
 	Total     uint64 `fieldname:"MemTotal"`
@@ -16,7 +16,7 @@ type MemStats struct {
 	SwapTotal uint64 `fieldname:"SwapTotal"`
 }
 
-func (o *MemParse) ParseContent(content string) interface{} {
+func (o *memParse) ParseContent(content string) interface{} {
 	result := MemStats{}
 	dictValue := make(map[string]uint64)
 	content = strings.ReplaceAll(content, ":", "")

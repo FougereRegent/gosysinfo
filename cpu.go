@@ -1,4 +1,4 @@
-package cpu
+package main
 
 import (
 	"strconv"
@@ -28,7 +28,7 @@ const (
 	_SOFTIRQ_SIZE            = 7
 )
 
-type CpuParse struct {
+type cpuParse struct {
 }
 
 type CpuStats struct {
@@ -52,7 +52,7 @@ type cpuLoad struct {
 	Softirq       float64
 }
 
-func (o *CpuParse) ParseContent(content string) interface{} {
+func (o *cpuParse) ParseContent(content string) interface{} {
 	var result CpuStats
 	stringTab := strings.Split(content, "\n")
 

@@ -1,5 +1,5 @@
-package hardware
+package main
 
-type Hardware interface {
+type hardware interface {
 	ParseContent(content string) interface{}
 }
